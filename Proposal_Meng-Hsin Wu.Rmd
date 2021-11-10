@@ -1,0 +1,25 @@
+---
+title: "Are Cats Cute ? A Questionnaire Survey about People's Preference to cats"
+author: "Meng-Hsin, Wu"
+date: "2021/11/10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Introduction
+---
+
+Cats are common companion animals which have been thought to bring joys and happiness to people. The amount of cat-raising families is gradually increasing over time and total population size of cats in Taiwan is raising in an incredible rate. Until 2019, abundance of Taiwanese cats had reached 763,711 individuals, which was expected to grow continuously. Although advantages this species offers have drown public awareness in recent years, some people still consider them to be proud and imperious. The empirical experiences from the author showed that cats displayed strong will of laziness, spending 16 hours per day for sleep. Some authorities even suspected that cats intentionally drop fragile decorations to ground just for infuriating their hosts. While the malevolent attitudes cats display toward humans are still hardly explained by ethological theories, a few online critics have suggested that spiritual abuse might potentially arouse the favoritism from humans. These claims are related to another public rumor that cats were originally imported from an unknown planet, any stable bond with endemic species on earth brings benefits to their colonization. According to this viewpoint, their attitudes might be simply an outcome of adaptive modification to strengthen the interaction with humans. Consequently, whether humans simultaneously exhibit a reciprocal emotion toward condescending attitudes of cats has become a novel psychological issue for getting an insight into relationship between hosts and pets.  
+Aim of this survey is to adopt questionnaire method to examine the perspective from students and staffs in National Taiwan University (NTU) about cats. Differences between cat-owners and cat-free people will also be taken into consideration to better understand the host-pet bonds. Considering myriad online self-evaluations have classified people into “cat people” and “dog people”, identifying whether people’s perspectives to dogs would affect their attitudes to cats is also one major aim of this study.
+
+Materials and Methods
+---
+Individuals of students and staffs in Institute of Oceanography, National Taiwan University (IONTU) will be chosen as part of this survey. The maximum sample size is expected to reach 30 to 50 for fully representing the true condition. Google sheets will be selected to design questionnaire. People’s preference is subdivided into 11 levels that level 10 means the highest preference and level 0 represents the lowest. People are asked to select the level of their preference both to cats and to dogs for the subsequent analysis about impacts from dog-preference. A combination of questions about gender, jobs and whether a cat-owner or not will be listed in the questionnaire for further documenting sexual, professional and personal variation.
+Software R will be used for data analysis. Package “dplyr” and ”tidyr” are chosen for data transformation, transformed data is sent to basic function qqnorm or qqline to make sure that data are distributed normally. Simple linear regression test will be performed by functions in package ”ggplot2” between dog- and cat-preference levels. Subsets of different genders or jobs will be grouped for further regression analysis.
+
+Conclusion
+---
+Since reports about host-pet interaction in IONTU are scarce after its initiation. This survey is predicted to be the first study in this institute focusing exceptionally on companion animals like cats, which will not only provide essential information about mental condition of peoples majoring in oceanography but also act as basic research for host-pet relationship and their evolutionary meanings. With this study, we are expected to be more confident about identifying the driving forces controlling our feelings toward cats and to tell our true emotion to these cunning animals.
