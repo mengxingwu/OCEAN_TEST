@@ -1,0 +1,596 @@
+---
+title: Do people’s Political Stances Impact Their Decision in Referendum?  A Comparative Analysis between Results of  2021 Taiwanese Referendum and 2020 Presidential Election
+author: "Meng-Hsin, Wu"
+date: "2021/12/30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Introduction
+---
+After the recent legislation of Taiwanese Referendum Act in 2017 that petition criteria has lowered from 5% to 1.5% of the sum of voters in the latest presidential election and empowering criteria has lowered from 50% to 25% of the total eligible voters. Due to a higher accessibility than before, more opportunities are expected to be offered for citizens to express their suggestions and to propose new laws via referendum. Two referendums have been held in 2018 and 2021 after the legislation and both outcomes were successfully empowered.  
+
+For the referendum in 2021, four issues were included, which were (1) The restart of nuclear plant No.4 in Gongliao (Issue 17 / Nuclear Plant Issue), (2) Ban on Ractopamine-contained pork imports (Issue 18 / U.S pork Issue), (3) Holding the referendum in conjunction with national election (Issue 19 / Referendum Issue), and (4) The relocation of The Third LNG Terminal from Datan for algal reef protection (Issue 20 / Algal Reef Issue). 
+
+Issue 17 was associated with the recent energy-transformation debates that the demands for electric power is increasing while the power plants around Taiwan fail to meet the demands. Besides, Nuclear plant No.1 in Shimen will be terminated within 25 years, which means there’s an urgent need to uncover an alternative option as energy-source. The idle nuclear plant, Nuclear Plant No.4 in Gongliao, has caught public’s eyes that the reboot of this power plant provides possibility to solve the coming energy emergency. However, Democratic Progressing Party (DPP), the ruling party, has been boycotting this issue since their long-insisting “nuclear-free homeland” policy. The major opposition party, the Kuomintang (KMT), therefore called for the referendum for determining this issue. Issue 18 is about the imports of ractopamine-contained pork from the U.S which was claimed as a consensus with the U.S for Free-Trade Agreement (FTA) by the DPP. To protest against this political decision and protecting food-safety in Taiwan, several chairmen of KMT have petitioned the ban of ractopamine-contained pork as one issue in 2021 referendum. Issue 19 was otherwise proposed by the DPP for a change in modern Referendum Act which confines the date of referendum in being combined with national election. The last issue, issue 20, was also related with energy-transformation debates that location selected for The Third LNG Terminal is right near Datan algal reefs. It is expected that algal reef may be damaged during and after construction due to intense anthropogenic disturbance, which will directly lead to environmental degradation. For maintaining precious habitat, local NGO has claimed to put the choice of relocating LNG Terminal to Taipei Port, Bali into the referendum and was supported by the KMT.
+
+Before the referendum, DPP asked their supporters to vote for “four disagreements” while KMT asked for “four agreements”, which was believed to strongly affected voters’ decision. The result of referendum in Dec.18th ,2021 turned out that all four proposals were rejected, which matched the DPP’s claims. Since political stances in Taiwanese voters can be generally divided into Pan-Green and Pan-Blue, which were mainly composed of supporters for DPP and KMT respectively, we assumed that (1) all ratio of agreement/disagreement (A/D ratio) in four issues can be sufficiently predicted by ratio of Pan Blue/Pan Green (B/G ratio) in the latest presidential election. We also assume that (2) most voters followed advices from the party they support, making their decisions simply as “four agreements” or “four disagreements”. Thus, A/D ratio is expected to demonstrate no obvious differences among issues. 
+
+Herein, we choose New Taipei City (NTC) as target city for analyzing voter’s decision since it is not only the most populated city in Taiwan but also city with large proportion of immigrants. We therefore consider this city a suitable target for speculating general pattern of voter’s structure in Taiwan. 
+
+Among all districts in NTC, Gongliao district is related to Nuclear Plant Issue since it is the location of Nuclear Plant No.4. Bali district, on the other hand, is related to Algal Reef Issue for being the reserved location for The Third LNG Terminal proposed by local NGO in Datan. These connections were believed to cause preference-deviation in the specific issue, that is to say, people would like to choose the option benefits themselves instead of following their political stances. Whether residents in these two districts demonstrated different attitude to the related issues is also one aim in this study.
+
+Materials and Methods
+---
+Data sheets of referendum result and 2020 presidential election result in NTC was downloaded from website of Central Election Commission (CEC) (https://www.cec.gov.tw/pc/zh_TW/index.html). The minimal scale in the chosen datasets was set to village-level with the corresponding districts. 
+
+For data of 2020 presidential election, the total ballots Tsai Ing-Wen got was defined as total ballots of Pan-Green. The sum of ballots that Han Guo-Yu and Soong Chu-Yu got was defined as total ballots of Pan-Blue since both KMT and People First Party are considered to be Pan-Blue party in contrast to DPP, which is classified as Pan-Green party.
+The excel files were manually manipulated for better representation and imported to R 4.1.2 for analysis. Package dplyr, tidyr, and readxl were loaded for further re-arrangement. A/D ratio and B/G ratio are calculated from the well-arranged tables. 
+
+Overall relationship of A/D ratio among issues are analyzed by general linear model (GLM). Family of dataset was set to Poisson. Package contrast was loaded for calculating deviation of estimated coefficient in each issue-pair. We subtracted null deviance with residual deviance to get Chi-square score, p-value of Chi-square score was calculated from online calculator (https://www.statology.org/chi-square-p-value-calculator/) for examining how well the model fitted the dataset. Package ggplot2 are used for constructing boxplot and violin plot for visualizing inter-district and inter-issue variation. 
+
+Data of Gongliao was extracted from row data. Boxplot of data-distribution was constructed by functions in package ggplot2. GLM was used for evaluating relationship among issues by setting A/D ratio of Nuclear Plant as dependent variable. The p-value of Chi-square score was extracted to evaluate the predictive power of the constructed model.
+
+For data of Bali, Identical methods of analysis were also used for comparing residents’ preference between Algal Reef Issue and other issues.
+
+Linear models setting B/G ratio in 2020 presidential election as predictor variable and A/D ratio in each issue of 2021 referendum as dependent variables were built and visualized by package ggplot2 for evaluating the regression relationship between two types of ratios. The inter-district variations were subsequently visualized by boxplot and violin plot.
+
+Result
+---
+Both datasets of 2021 referendum and 2020 presidential election revealed Banciao as the district with largest data size (n=504) and Wulai as the one with smallest (n=20), which is related to population size. All village-level data in NTC shows a similar left-skewed pattern of distribution among four issues. Results from GLM and GLM contrast have showed that no data of a specific issue can be used to significantly predict data of another issue (Table.1). Nuclear Plant Issue is the one with lowest A/D ratio value which differed significantly with the other three counterparts (Figure.1, Table.2). Nevertheless, this model failed to significantly fit the dataset that the p-value of Chi-square score was equal to 1 (Table.1).
+
+According to the contrast result of GLM, Nuclear Plant Issue is the issue with lowest value of A/D ratio in Gongliao while no significant relationship was discovered in issue-pairs containing Nuclear-Plant Issue (Table.3). The GLM depicting relationships among issues in Gongliao turned out to be poorly representative according to the p-value of Chi-square score (p=0.99995, df=10).
+
+According to contrast result of GLM on Bali dataset, Lowest estimated value is found at Nuclear Plant Issue which is followed by Algal Reef Issue (Figure.2, Table.4). No significant relationships are detected in every issue-pair containing Algal Reef Issue. GLM of Bali also fails to significantly explain the dataset (p-value of Chi-square score=0.999909, df=9).
+
+A/D ratio of all four issues are positively correlated to B/G ratio in the presidential election. Values of R-square reveal that A/D ratio in all issues are highly predictable by using B/G ratio as predictor variable (Figure.3). All models are well-fitted to the datasets and significant relationships are detected (Table.5). 
+
+
+Conclusion and Discussion
+---
+The strong influences from people’s political stances on their decisions in referendum is proved in this study. All results of 2021 Referendum are found to be highly predictable by result of 2020 presidential election, which tells that people were likely following the advices from party they support instead of with their personal will. People in NTC seems to show a stronger disagreement in the Nuclear Plant Issue when comparing with their decisions in other three issues. Residents’ strong disagreement in Gongliao district to Nuclear Plant No.4 can be detected by the methods we used despite the insignificant outcome. Residents in Bali district, however, didn’t show an exceptional opposition on the Algal Reef Issue, which represents that people’s decisions in Bali are more likely to be affected by political stances than by the public profits. 
+
+The “four agreements” and “four disagreement” recommendation claimed by DPP and KMT seems to be the critical force determining the A/D ratio in every issue. This outcome can also be justified by the inter-district distribution pattern of A/D and B/G ratio in the two events. Districts like Xindian, Wulai, Zhonghe and Yonghe are dominated by Pan-Blue voters and districts like Gongliao, Luzho and Pinling are otherwise dominated by Pan-Green voters. Similar pattern can be noticed in 2021 referendum that the Pan-Blue districts generally exhibits higher A/D ratio than Pan-Blue districts (Supplement.1, Supplement.3). This inter-district variation is possibly related to residents’ composition. For example, residents in Xindian, Yonghe and Zhonghe contain highest proportion of Mainlanders from China, the conventional supporters to KMT in NTC, which makes these districts Pan-Blue dominant. Despite the congruency of voters’ structure between two events, slight difference could be detected while interpreting boxplots of the two results. Values of A/D ratio in Tamsui and Shenkeng are slightly higher than B/G ratio in presidential election (Supplement.3). We then subjected the two outcomes to Mann-Whitney U test. Significant difference was discovered among the two ratios (W=1291, P=0.0011), which is a potential shift of general political tendency from Pan-Green to Pan-Blue. 
+
+Political stances, however, was not the only driving force influencing the referendum in Gongliao. People’s dislike to Nuclear Plant No.4 seems to be reflected via the low A/D ratio in Nuclear Plant Issue (Figure.1), which fits our hypothesis that people’s decision in Gongliao was affected by their negative attitude toward the idle nuclear plant. The questionnaire survey targeting the viewpoints about recent nuclear strategies in people associated with Nuclear Plant No.1 to No.4 revealed that residents of Gongliao district significantly opposed the continuous use of nuclear power (何容君 et al., 2013). This could be traced back to the Fukushima Nuclear Disaster (FND) in 2011. After the event had occurred, the average confidence and supporting rate to nuclear power was generally decreased in Taiwanese citizens (梁世武, & 李均揚., 2014). Therefore, we suggest that the high disagreement in Gongliao district is a consequence of public fear to any possible impact generated by nuclear power.
+
+Different from Gongliao, we only partially accept our assumption that residents showed more negative decision on Algal Reef Issue comparing to other issues. In fact, issue with the lowest value of A/D ratio was Nuclear Plant Issue instead of Algal Reef Issue, the one we previously expect. This mismatch could be explained by the momentum coming from people’s political stances. However, we’ve noticed a unique pattern that both Nuclear Plant and Algal Reef Issue are strongly rejected in Bali district (Figure.2). This might be resulted from the rises of environmental awareness in recent years that people prone to cluster issues of ecological importance together and showing similar tendency to them (Chen, C. L., & Tsai, C. H., 2016). To protect Datan algal reef and the precious coral species, Polycyathus chaishanensis, local NGO in Taoyuan city has been using online networks for spreading their claims. The active trans-group interaction via social media caused strong pressure on the government, forcing them to face up the communication with authorities concerning this issue (張惠堂, & 李威翰., 2015). Nevertheless, the online debates might otherwise impose negative effects on their proposal that residents in Bali could be irritated by the alternative option they suggested which ask for the translocation of The Third LNG Terminal to Taipei Port, Bali. 
+
+This study provides preliminary insight into the connection between people’s political stances and the result of referendum. The strong synchronous pattern between the two outcomes has alarmed people the possibility of political manipulation for the propose of accepting or rejecting a specific issue in referendum. The pattern can also be used to interpret the shifts of party’s supporting rate during the interval between 2020 and 2021. We recommend local branches of the major parties in Taiwan for taking this analyzed dataset as reference to better recognize people’s preference on certain issues.
+
+Reference
+---
+Chen, C. L., & Tsai, C. H. (2016). Marine environmental awareness among university students in Taiwan: a potential signal for sustainability of the oceans. Environmental Education Research, 22(7), 958-977.
+
+何容君 (2013). 環境危害暴露相關之風險認知研究. 臺北醫學大學公共衛生學系暨研究所學位論文, 1-86.
+
+林政緯. (2010). 台灣農會, 派系與地方選舉之關係: 以新北市為例. 政治大學國家發展研究所學位論文, 1-409.
+
+張惠堂, & 李威翰. (2015). 網路社群參與地方公共事務之研究: 以觀新藻礁生態保育議題為例. 中國行政評論, 21(3), 49-76.
+
+梁世武, & 李均揚. (2014). 從鄰避效應與認知失調解析台灣民眾的核電風險認知與態度. 台灣公共衛生雜誌, 33(4), 428-444.
+
+鈴木真奈美. (2020). 台湾の脱原発政策と民意の揺り戻し. 沖 縄 大 学 地 域 研 究 所, (25), 53-75.
+
+
+
+
+
+
+
+
+
+-Code: for data manipulation
+
+```{r data import, warning=FALSE, error=FALSE, message=F, echo=T, eval=T}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+setwd("~/Courses of 110 semester-1/R Introduction/Proposal-and-Final-Report-for-OCEAN5098")
+presid<-read_xls('president_xinbei.xls')
+presid2<-presid[7:1038,c(1,3:5)]
+#set column names
+colnames(presid2)<-c('district','Song', 'Han', 'Tsai')
+#import village-based dataset
+nuclear.v<-read_xls('refer_village.xls',sheet=1)
+pork.v<-read_xls('refer_village.xls',sheet=2)
+refer.v<-read_xls('refer_village.xls',sheet=3)
+reef.v<-read_xls('refer_village.xls',sheet=4)
+
+
+nuclear.v2<-nuclear.v[6:1037,c(1,3:5)]
+pork.v2<-pork.v[6:1037,c(1,3:5)]
+refer.v2<-refer.v[6:1037,c(1,3:5)]
+reef.v2<-reef.v[6:1037,c(1,3:5)]
+
+
+colnames(nuclear.v2)<-c(
+  'district', 'agree', 'disagree','sum'
+)
+colnames(pork.v2)<-c(
+  'district', 'agree', 'disagree','sum'
+)
+colnames(refer.v2)<-c(
+  'district', 'agree', 'disagree','sum'
+)
+colnames(reef.v2)<-c(
+    'district', 'agree', 'disagree', 'sum'
+  )
+nuclear.v2$issue<-rep('nuclear plant no.4', 1032)
+pork.v2$issue<-rep('U.S pork', 1032)
+refer.v2$issue<-rep('tight referendum with poll', 1032)
+reef.v2$issue<-rep('algal reef', 1032)
+
+refer.v.total<-rbind(nuclear.v2, pork.v2, 
+                     refer.v2, reef.v2)
+refer.v.total$agree<-as.numeric(refer.v.total$agree)
+refer.v.total$disagree<-as.numeric(refer.v.total$disagree)
+refer.v.total$sum<-as.numeric(refer.v.total$sum)
+refer.v.total<-mutate(refer.v.total, proportion=agree/disagree)
+refer.v.total$agreement<-
+  ifelse(refer.v.total$proportion>1, 'agree', 'disagree' )
+
+
+refer.v.total$district<-as.factor(refer.v.total$district)
+levels(refer.v.total$district)<-c('Bali', 'Sanzhi',
+                                'Sanchong', 'Sanxia', 'Tucheng', 'Zhonghe',
+                                'Wugu', 'Pingxi', 'Yonghe', 'Shimen', 'Shiding',
+                                'Xizhi', 'Pinling', 'Banciao', 'Linkou',
+                                'Jinshan', 'Taishan', 'Wulai', 'Gongliao',
+                                'Tamsui', 'Shengken', 'Xindian', 'Xinzhuang',
+                                'Ruifang', 'Wanli', 'Shulin', 'Shuangxi', 'Luzho',
+                                'Yingge')
+
+
+#GLM for referendum result
+refer.issue.glm<-glm(proportion~issue,
+                     family='poisson',
+                     data=refer.v.total)
+
+
+```
+
+Table.1: Summary of GLM for the referendum result
+---
+```{R refer.v.total, cache=T, echo=F}
+summary(refer.issue.glm)
+```
+
+
+-Code: Contrast for GLM
+
+```{R contrast for glm, echo=T,error=F, warning=F, cache=T}
+library(contrast)
+con.nu.ref<-contrast(refer.issue.glm,
+         list(issue='nuclear plant no.4'),
+         list(issue='tight referendum with poll'))
+con.nu.por<-contrast(refer.issue.glm,
+         list(issue='nuclear plant no.4'),
+         list(issue='U.S pork'))
+con.nu.ree<-contrast(refer.issue.glm,
+                     list(issue='nuclear plant no.4'),
+                     list(issue='algal reef'))
+con.ree.ref<-contrast(refer.issue.glm,
+            list(issue='algal reef'),
+            list(issue='tight referendum with poll'))
+con.ree.por<-contrast(refer.issue.glm,
+                      list(issue='algal reef'),
+                      list(issue='U.S pork'))
+con.ref.por<-contrast(refer.issue.glm,
+                      list(issue='tight referendum with poll'),
+                      list(issue='U.S pork'))
+
+list.glm.const<-list()
+list.glm.const<-list(con.nu.por,
+  con.nu.ree, con.nu.ref, con.ree.por,
+  con.ree.ref, con.ref.por)
+glm.Constrast<-c()
+glm.S.E<-c()
+glm.lower<-c()
+glm.upper<-c()
+glm.t<-c()
+glm.df<-c()
+glm.p<-c()
+for(i in 1:6){
+  glm.Constrast[i]<-list.glm.const[[i]]$Contrast
+  glm.S.E[i]<-list.glm.const[[i]]$SE
+  glm.lower[i]<-list.glm.const[[i]]$Lower
+  glm.upper[i]<-list.glm.const[[i]]$Upper
+  glm.t[i]<-list.glm.const[[i]]$testStat
+  glm.df[i]<-list.glm.const[[i]]$df
+  glm.p[i]<-list.glm.const[[i]]$Pvalue
+}
+issue.constrast<-data.frame(Constrast=glm.Constrast,
+           S.E=glm.S.E,
+           lower=glm.lower,
+           upper=glm.upper,
+           t_value=glm.t,
+           df=glm.df,
+           p_value=glm.p)
+
+row.names(issue.constrast)<-
+  c('Nuclear Plant v.s U.S Pork',
+    'Nuclear Plant v.s Algal Reef',
+    'Nuclear Plant v.s Referendum',
+    'Algal Reef v.s U.S Pork',
+    'Algal Reef v.s Referendum',
+    'Referendum v.s U.S Pork')
+```
+
+Table.2: Contrast table extracted from the GLM
+---
+```{R issue contrast, cache=T, echo=F}
+issue.constrast
+
+```
+
+-Code of GLM based on Gongliao dataset
+
+```{R Gongliao dataset, error=F, warning=F}
+Gongliao.refer<-filter(refer.v.total, district=='Gongliao')
+gongliao.violin<-ggplot(Gongliao.refer, 
+       aes(x=issue, y=proportion))+
+  geom_violin(aes(fill=issue), alpha=0.5)+
+  geom_boxplot(aes(fill=issue),
+               alpha=0.5)+
+  geom_point(alpha=0.6)+
+  ylab('Ratio (Agree / Disagree)')+
+  xlab('Issue')+
+  ggtitle('A/D ratio among four issues in Gongliao')+
+  scale_fill_discrete(name='Issue',
+  labels=c('Algal reef', 'Nuclear plant No4',
+        'referendum',
+        'Pork from the U.S'))+
+  scale_x_discrete(labels=c(
+    'algal reef'='Algal reef',
+    'nuclear plant no.4'='Nuclear Plant No.4',
+    'tight referendum with poll'=
+      'Combine referendum with election',
+    'U.S pork'= 'Pork from the U.S'
+  ))+
+  theme(axis.text.x=element_text(size=3.5))
+  
+
+#extracting data of four issues
+gongliao.reef<-filter(Gongliao.refer, issue=='algal reef')
+gongliao.refer<-filter(Gongliao.refer, 
+                       issue=='tight referendum with poll')
+gongliao.nuclear<-filter(Gongliao.refer, 
+                         issue=='nuclear plant no.4')
+gongliao.pork<-filter(Gongliao.refer,
+                      issue=='U.S pork')
+
+Gongliao.glm<-glm(gongliao.nuclear$proportion~
+    gongliao.reef$proportion+gongliao.refer$proportion+
+  gongliao.pork$proportion,
+    family='binomial')
+```
+
+Table.3: Summary of GLM in Gongliao
+---
+```{R gonglaio glm, warning=F, error=F, echo=F}
+summary(Gongliao.glm)
+```
+
+Figure.1: Boxplot of Gongliao dataset
+---
+
+```{R boxplot of gongliao,warning=F, error=F, echo=F}
+gongliao.violin
+```
+
+
+-Code for GLM based on Bali dataset
+
+```{R Bali data, warning=F, error=F}
+bali.refer.total<-filter(refer.v.total, district=='Bali')
+bali.nuclear<-filter(bali.refer.total, 
+                     issue=='nuclear plant no.4')
+bali.reef<-filter(bali.refer.total, 
+                  issue=='algal reef')
+bali.refer<-filter(bali.refer.total, 
+                  issue=='tight referendum with poll')
+bali.pork<-filter(bali.refer.total, 
+                  issue=='U.S pork')
+
+#building boxplot
+bali_box<-ggplot(bali.refer.total,
+       aes(x=issue, y=proportion))+
+  geom_point(cex=0.8)+
+  geom_boxplot(aes(fill=issue))+
+  geom_violin(aes(col=issue),
+              alpha=0.5)+
+  ylab('Ratio (Agree / Disagree)')+
+  xlab('District')
+bali.box<-bali_box+
+  theme(axis.text.x=element_text(size=6))+
+  scale_color_discrete(name='Issue',
+                       labels=c('Algal reef',
+                                'Nuclear Plant No.4',
+                                'Combine referendum with election',
+                                'Pork from the U.S'))+
+  scale_fill_discrete(name='Issue',
+            labels=c('Algal reef',
+              'Nuclear Plant No.4',
+        'Combine referendum with election',
+          'Pork from the U.S'))+
+  scale_x_discrete(labels=c(
+    'algal reef'='Algal reef',
+    'nuclear plant no.4'='Nuclear Plant No.4',
+    'tight referendum with poll'=
+      'Combine referendum with election',
+    'U.S pork'= 'Pork from the U.S'
+  ))
+#end of boxplot construction
+
+#building glm
+bali.glm2<-glm(bali.reef$proportion~bali.pork$proportion+
+      bali.nuclear$proportion+
+      bali.refer$proportion,
+    family='binomial')
+#end of glm construction
+```
+
+
+Table.4: Summary for GLM of Bali
+---
+```{R Bali GLM summary, warning=F, error=F, echo=F}
+summary(bali.glm2)
+
+```
+
+Figure.2: Boxplot of Bali dataset
+---
+```{R bali boxplot, warning=F, error=F, echo=F}
+
+bali.box
+
+```
+
+-Code for building linear model describing the connection between presidential election and referendum
+
+```{R lm build, warning=F, error=F, message=F}
+
+presid2$district<-as.factor(presid2$district)
+levels(presid2$district)<-c('Bali', 'Sanzhi',
+                                'Sanchong', 'Sanxia', 'Tucheng', 'Zhonghe',
+                                'Wugu', 'Pingxi', 'Yonghe', 'Shimen', 'Shiding',
+                                'Xizhi', 'Pinling', 'Banciao', 'Linkou',
+                                'Jinshan', 'Taishan', 'Wulai', 'Gongliao',
+                                'Tamsui', 'Shengken', 'Xindian', 'Xinzhuang',
+                                'Ruifang', 'Wanli', 'Shulin', 'Shuangxi', 'Luzho',
+                                'Yingge')
+#using gsub() to erase ',' in integers.
+presid2$Tsai<-as.numeric(gsub(',','',presid2$Tsai))
+presid2$green<-presid2$Tsai
+presid2$Song<-as.numeric(gsub(',','',presid2$Song))
+presid2$Han<-as.numeric(gsub(',','',presid2$Han))
+presid2$blue<-presid2$Song+presid2$Han
+presid2$ratio<- presid2$blue/presid2$green
+presid2$winner<-ifelse(presid2$ratio>1, 'blue', 'green')
+presid.box<-ggplot(presid2, 
+       aes(x=district, y=ratio))+
+  geom_boxplot()+
+  theme(axis.text.x=element_text(size=5))+
+  geom_hline(yintercept=1)+
+  ylim(c(0,2))+
+  xlab('District')+
+  ylab('Ratio (Blue/Green)')
+ggsave('predisent_Poll.png',
+       presid.box,
+       width=10,
+       height=5,
+       dpi=500)
+
+#A simple way to coerse multiple variables to numeric.
+coerse.target<-c('agree', 'disagree', 'sum')
+nuclear.v2[coerse.target]<-sapply(nuclear.v2[coerse.target], as.numeric)
+pork.v2[coerse.target]<-sapply(pork.v2[coerse.target], as.numeric)
+refer.v2[coerse.target]<-sapply(refer.v2[coerse.target], as.numeric)
+reef.v2[coerse.target]<-sapply(reef.v2[coerse.target], as.numeric)
+
+nuclear.v2<-mutate(nuclear.v2,proportion=agree/disagree)
+pork.v2<-mutate(pork.v2,proportion=agree/disagree)
+refer.v2<-mutate(refer.v2,proportion=agree/disagree)
+reef.v2<-mutate(reef.v2,proportion=agree/disagree)
+
+
+# algal reef linear model analysis
+reef.presid.m<-lm(reef.v2$proportion~presid2$ratio)
+reef.regression<-data.frame(
+  agreement_ratio<- reef.v2$proportion,
+  political_ratio<- presid2$ratio
+)
+lmplot.reef<-ggplot(reef.regression,
+       aes(x=political_ratio,
+           y=agreement_ratio))+
+  geom_point()+
+  geom_smooth(method='lm', col='red')+
+  xlab('Ratio of Pan-Blue / Pan-Green')+
+  ylab('Ratio of Agreement / Disagreement')+
+  ggtitle('Issue of Algal Reef')+
+  theme(plot.title=element_text(hjust=0.5))+
+  annotate('text', label='y=-0.0625+1.3457*(B/G ratio)',
+    x=2.5, y=1)+
+  annotate('text', label='R-square=0.9293, F=1.353*10^4',
+           x=2.4, y=0.5)
+
+#end of algal reef lm analysis
+
+
+#nuclear linear model analysis
+nuclear.regression<-data.frame(
+  nuclear_ratio=nuclear.v2$proportion,
+  political_ratio=presid2$ratio)
+lmplot.nuclear<-ggplot(nuclear.regression,
+       aes(x=political_ratio,
+           y=nuclear_ratio))+
+  geom_point()+
+  geom_smooth(method='lm', col='green')+
+  xlab('Ratio of Pan-Blue / Pan-Green')+
+  ylab('Ratio of Agreement / Disagreement')+
+  ggtitle('Issue of Nuclear Plant No.4')+
+  theme(plot.title=element_text(hjust=0.5))+
+  annotate('text', label='y=-0.0729+1.2590*(B/G ratio)',
+    x=2.5, y=1)+
+  annotate('text', label='R-square=0.9281, F=1.329*10^4', x=2.4, y=0.5)
+
+nuclear.presid.m<-lm(nuclear.v2$proportion~presid2$ratio)
+
+#end of nuclear lm analysis
+
+
+# referendum linear model analysis
+refer.regression<-data.frame(
+  agreement_ratio= refer.v2$proportion,
+  political_ratio=presid2$ratio
+)
+lmplot.refer<-ggplot(refer.regression,
+       aes(x= political_ratio,
+           y= agreement_ratio))+
+  geom_point()+
+  geom_smooth(method='lm', 
+              col=rgb(0, 0.7,0.8, 0.7))+
+  xlab('Ratio of Pan-Blue / Pan-Green')+
+  ylab('Ratio of Agreement / Disagreement')+
+  ggtitle('Issue of Referendum')+
+  theme(plot.title=element_text(hjust=0.5))+
+  annotate('text', label='y=-0.0753+1.3924*(B/G ratio)',
+    x=2.5, y=1)+
+  annotate('text', label='R-square=0.9277, F=1.321*10^4', x=2.4, y=0.5)
+
+refer.presid.m<-lm(agreement_ratio~political_ratio, refer.regression)
+
+
+#end of referendum lm analysis
+
+pork.regression<-data.frame(
+  agreement_ratio=pork.v2$proportion,
+  political_ratio=presid2$ratio
+)
+lmplot.pork<-ggplot(pork.regression,
+       aes(x=political_ratio,
+           y=agreement_ratio))+
+  geom_point()+
+  geom_smooth(method='lm', 
+              col='purple')+
+  xlab('Ratio of Pan-Blue / Pan-Green')+
+  ylab('Ratio of Agreement / Disagreement')+
+  ggtitle('Issue of U.S Pork')+
+  theme(plot.title=element_text(hjust=0.5))+
+   annotate('text', label='y=-0.0475+1.34172*(B/G ratio)',
+    x=2.5, y=1)+
+  annotate('text', label='R-square=0.9269, F=1.307*10^4', x=2.4, y=0.5)
+ggsave('pork_lm.png', lmplot.pork,
+       width=5, height=4,
+       dpi=600)
+pork.presid.m<-lm(agreement_ratio~political_ratio, 
+   pork.regression)
+
+#end of pork lm analysis
+```
+
+Table.5: Summary of four linear models delineating
+---
+relationship between B/G ratio and A/D ratio
+---
+```{R lm summary, echo=F, warning=F, error=F}
+summary(reef.presid.m)
+summary(nuclear.presid.m)
+summary(refer.presid.m)
+summary(pork.presid.m)
+```
+
+Figure.3: Regression plots of the four issues
+---
+
+```{R regression plot, echo=F, warning=F, error=F, message=F}
+lmplot.reef
+lmplot.nuclear
+lmplot.refer
+lmplot.pork
+
+```
+
+Supplement.1: Boxplot of New Taipei City
+---
+-To illustrate inter-district variation
+
+
+```{R NTC overall, echo=F, warning=F, message=F,fig.width=10, fig.height=5}
+refer.v.boxplot<-ggplot(refer.v.total, 
+       aes(y=proportion, x=district))+
+  geom_boxplot(aes(fill=issue))+
+  ylim(c(0,3))+
+  theme(axis.text.x=element_text(size=4.5),
+        legend.text=element_text(size=5))+
+  geom_hline(yintercept = 1)+
+  xlab('District')+
+  ylab('Ratio of Agreement/Disagreement')+
+  ggtitle('Data Distribution of Referendum Result')+
+  scale_fill_discrete(name='Issue',
+            labels=c('Algal reef', 'Nuclear plant No4',
+          'Combine referendum with election',
+          'Pork from the U.S'))
+refer.v.boxplot
+```
+
+Supplement.2: Box plot of issues
+---
+-To illustrate inter-issue variation
+
+
+```{R issue boxplot, warning=F, echo=F, message=F}
+issue.boxplot<-ggplot(refer.v.total,
+       aes(x=issue,
+           y=proportion,
+           fill=issue))+
+  geom_boxplot()+
+  geom_violin(aes(fill=issue),
+              alpha=0.4)+
+  xlab('Issue')+
+  ylab('Ratio (Agreement/Disagreement)')+
+  scale_fill_discrete(name='Issue',
+                      labels=c('Algal reef',
+                        'Nuclear Plant No.4',
+                        'Combine referendum with election',
+                        'Pork from the U.S'))+
+  scale_x_discrete(labels=c(
+    'algal reef'='Algal reef',
+    'nuclear plant no.4'='Nuclear Plant No.4',
+    'tight referendum with poll'=
+      'Combine referendum with election',
+    'U.S pork'= 'Pork from the U.S'
+  ))+
+  theme(axis.text.x=element_text(size=6,
+                                 angle=15,
+                                 hjust= 0.5),
+        legend.text=element_text(size=6))
+
+issue.boxplot
+
+```
+
+Supplement.3: Boxplot of presidential election
+---
+-To illustrate inter-district variation in 2020 presidential election
+
+
+```{R president boxplot, warning=F, message=F, echo=F, fig.width=10, fig.height=5}
+presid.box<-ggplot(presid2, 
+       aes(x=district, y=ratio))+
+  geom_boxplot()+
+  theme(axis.text.x=element_text(size=5))+
+  geom_hline(yintercept=1)+
+  ylim(c(0,2))+
+  xlab('District')+
+  ylab('Ratio (Blue/Green)')
+
+presid.box
+
+
+```
